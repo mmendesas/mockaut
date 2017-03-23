@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -14,72 +15,57 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="js/lib/jsoneditor/jsoneditor.min.css">
 
     <!-- Custom styles for this template -->
     <link href="css/jumbotron-narrow.css" rel="stylesheet">
 
     <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/angular-animate.min.js"></script>
+    <script src="js/lib/angular-route.min.js"></script>
+    <script src="js/lib/angular-resource.min.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--JSON Editor-->
+    <script src="js/lib/jsoneditor/jsoneditor.min.js"></script>
+    <script src="js/lib/ng-jsoneditor.js"></script>
+
+    <!--Custom-->
     <script src="js/main.js"></script>
     <script src="js/controllers/regras-controller.js"></script>
+    <script src="js/controllers/regra-controller.js"></script>
+    <script src="js/controllers/projects-controller.js"></script>
+    <script src="js/controllers/editor-controller.js"></script>
+
 </head>
 
-<body ng-controller="RegrasController">
+<body>
     <div class="container">
+
+        <!--HEADER-->
         <div class="header clearfix">
             <nav>
                 <ul class="nav nav-pills pull-right">
-                    <li role="presentation" class="active"><a href="#">Home</a></li>
-                    <li role="presentation"><a href="#">Create Project</a></li>
-                    <li role="presentation"><a href="#">Rules</a></li>
-                    <li role="presentation"><a href="#">Setup</a></li>
+                    <li role="presentation" class="active"><a href="/">Home</a></li>
+                    <!--<li role="presentation"><a href="#">Create Project</a></li>-->
+                    <li role="presentation"><a href="admin/regras">Rules</a></li>
+                    <!--<li role="presentation"><a href="#">Setup</a></li>-->
                 </ul>
             </nav>
             <h3 class="text-muted">Mockaut</h3>
         </div>
 
-        <div class="jumbotron">
-            <h1>Mockaut</h1>
-            <p class="lead">A simple API manager for generate custom endpoints to your tests</p>
-            <p><a class="btn btn-lg btn-success" href="#" role="button">Create Project</a></p>
-        </div>
+        <!--CONTENT-->
+        <ng-view></ng-view>
 
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <div class="caption">
-                        <h4><b>Custom Endpoints</b></h4>
-                        <p>Customize your endpoints by adding rules in it</p>
-                        <p><a href="#">Learn more</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <div class="caption">
-                        <h4><b>Swagger + Mockbin</b></h4>
-                        <p>Have you heard abou Swagger?</p>
-                        <p><a href="#">Learn more</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <div class="caption">
-                        <h4><b>HTTP Archive (HAR)</b></h4>
-                        <p>We use the HAR format to create mock endpoints</p>
-                        <p><a href="#">Learn more</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <!--FOOTER-->
         <footer class="footer">
             <p>&copy; 2017 Marcio Mendes.</p>
         </footer>
 
     </div>
-    <!-- /container -->
-
 </body>
 
 </html>

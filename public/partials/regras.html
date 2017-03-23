@@ -1,0 +1,52 @@
+<div class="jumbotron">
+    <h1 class="text-center">Rules</h1>
+</div>
+
+<p ng-show="mensagem.length" class="alert alert-info">
+    {{mensagem}}
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <input class="form-control" placeholder="type your search" ng-model="filtro" ng-model-options="{ debounce: 500 }">
+    </div>
+    <!-- fim col-md-12 -->
+</div>
+<!-- fim row -->
+<br />
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Path</th>
+                <th>Project</th>
+                <th>Description</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="regra in regras | filter: filtro">
+                <td>{{regra.name}}</td>
+                <td>{{regra.path}}</td>
+                <td>{{regra.project}}</td>
+                <td>{{regra.description}}</td>
+                <td>
+                    <a href="/admin/regras/edit/{{regra._id}}" class="btn btn-primary">Edit</a>
+                    <button href="" class="btn btn-danger" ng-click="remover(regra)">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+<!-- fim row -->
+
+<div class="row text-center">
+    <div class="btn-toolbar">
+        <a href="/" class="btn btn-primary">Voltar</a>
+        <a href="admin/regras/new" class="btn btn-primary">New Rule</a>
+    </div>
+</div>
+<br />
+<br />

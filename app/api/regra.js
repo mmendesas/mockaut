@@ -1,16 +1,17 @@
 var api = {}
-var CONTADOR = 2;
+var CONTADOR = 3;
 var regras = [
-    { _id: 1, nome: 'Regra 001', descricao: 'Regra para endpoint /test' },
-    { _id: 1, nome: 'Regra 001', descricao: 'Regra para endpoint /testAdmin' }
+    { _id: 1, name: 'Regra 001', description: 'Regra para endpoint /test', path: '/test', project: 'M2' },
+    { _id: 2, name: 'Regra 002', description: 'Regra para endpoint /testAdmin', path: '/testAdmin', project: 'M2' },
+    { _id: 3, name: 'Regra 002', description: 'Regra para endpoint /testAdmin', path: '/testGroselha', project: 'M3' }
 ]
 
-//GET /admin/regras
+//GET /v1/regras
 api.lista = function (req, res) {
     res.json(regras);
 };
 
-//POST /admin/regras
+//POST /v1/regras
 api.adiciona = function (req, res) {
     var regra = req.body;
     regra._id = ++CONTADOR;
@@ -18,7 +19,7 @@ api.adiciona = function (req, res) {
     res.json(regra);
 };
 
-//GET /admin/regras/:id
+//GET /v1/regras/:id
 api.buscaPorId = function (req, res) {
 
     var regra = regras.find(function (regra) {
@@ -28,7 +29,7 @@ api.buscaPorId = function (req, res) {
     res.json(regra);
 };
 
-//DELETE /admin/regras/:id
+//DELETE /v1/regras/:id
 api.removePorId = function (req, res) {
     regras = regras.filter(function (regra) {
         return regra._id != req.params.id;
@@ -37,7 +38,7 @@ api.removePorId = function (req, res) {
     res.sendStatus(204);
 }
 
-//PUT /admin/regras/:id
+//PUT /v1/regras/:id
 api.atualiza = function (req, res) {
     var regraId = req.params.id;
     var regra = req.body;

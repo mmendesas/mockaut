@@ -12,6 +12,8 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "consign": "^0.1.2",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "jsoneditor": "^5.5.11",
+    "ng-jsoneditor": "^1.0.0"
   }
 }
