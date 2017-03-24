@@ -13,7 +13,16 @@
     "body-parser": "^1.17.1",
     "consign": "^0.1.2",
     "express": "^4.15.2",
+    "formidable": "^1.1.1",
+    "har": "^1.0.0",
+    "http-proxy": "^1.16.2",
     "jsoneditor": "^5.5.11",
-    "ng-jsoneditor": "^1.0.0"
+    "lodash": "^4.17.4",
+    "mockbin": "^1.6.3",
+    "ng-jsoneditor": "^1.0.0",
+    "swagger-client": "^2.1.32",
+    "swagger-parser": "^3.4.1",
+    "swagger-tools": "^0.10.1",
+    "unirest": "^0.5.1"
   }
 }

@@ -1,0 +1,54 @@
+<div class="page-header text-center">
+    <h1>Project Configuration</h1>
+</div>
+
+<p ng-show="message.length" class="alert alert-info">{{message}}</p>
+
+<form novalidate name="formulario" class="row" ng-submit="submeter()">
+    <div class="row">
+        <div class="form-group">
+            <label>Select File</label>
+            <span class='form-control' id="upload-file-info"></span>
+            <label class="btn btn-primary" for="my-file-selector">
+                    <input  file-upload  id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());angular.element(this).scope().fileSelected(this.files);">
+                   Browse File
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input ng-model="project.name" name="name" class="form-control" required ng-maxlength="20">
+                    <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.name.$error.required">
+                        Name is required
+                    </span>
+                    <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.name.$error.maxlength">
+                        Name must be a maximum of 20 characters
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>Description</label>
+                    <input ng-model="project.description" name="description" class="form-control" required>
+                    <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.description.$error.required">
+                        Description is required
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row text-center pull-right">
+        <button type="submit" class="btn btn-primary form" ng-disabled="formulario.$invalid">Save</button>
+        <a href="/admin/projects" class="btn btn-primary">Back</a>
+    </div>
+</form>
+
+<br />
+<br />

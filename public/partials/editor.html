@@ -1,0 +1,35 @@
+<h3>TESTE</h3>
+<div class="wrapper">
+    <table class="tree">
+    </table>
+</div>
+
+<script>
+    var jsonMenu = [{ "menuId": "1", "menuName": "Master", "menuParent": "-1", "menuLink": null, "menuPosition": "1", "children": [{ "menuId": "2", "menuName": "Master Admin", "menuParent": "1", "menuLink": "master_admin", "menuPosition": "1", "children": [] }, { "menuId": "3", "menuName": "Master Vendor", "menuParent": "1", "menuLink": "master_vendor", "menuPosition": "2", "children": [] }, { "menuId": "4", "menuName": "Master Menu", "menuParent": "1", "menuLink": "master_menu", "menuPosition": "3", "children": [] }, { "menuId": "5", "menuName": "Master Role", "menuParent": "1", "menuLink": "master_role", "menuPosition": "4", "children": [] }] }];
+
+    function createTable(jsonData) {
+        var generated = '';
+        for (var i = 0; i < jsonData.length; i++) {
+            if (jsonData[i].menuParent == -1) {
+                // parent menu
+                generated = generated + '<tr class="treegrid-' + jsonData[i].menuId + '"><td>' + jsonData[i].menuName + '</td></tr>';
+                // TODO recursive here
+                var recursiveResult = generateChildsRecursively(jsonData[i], generated);
+                generated = recursiveResult;
+            }
+        }
+        return generated;
+    }
+
+    function generateChildsRecursively(jsonData, generated) {
+        for (var i = 0; i < jsonData.children.length; i++) {
+            generated = generated + '<tr class="treegrid-' + jsonData.children[i].menuId + ' treegrid-parent-' + jsonData.menuId + '"><td>' + jsonData.children[i].menuName + '</td></tr>';
+            generated = generateChildsRecursively(jsonData.children[i], generated);
+        }
+        return generated;
+    }
+
+    $('.tree').append(createTable(jsonMenu));
+    $('.tree').treegrid();
+
+</script>

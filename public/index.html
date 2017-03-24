@@ -19,26 +19,40 @@
 
     <!-- Custom styles for this template -->
     <link href="css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="css/jquery.treegrid.css" rel="stylesheet">
 
+    <!--Angular-->
     <script src="js/lib/angular.min.js"></script>
     <script src="js/lib/angular-animate.min.js"></script>
     <script src="js/lib/angular-route.min.js"></script>
     <script src="js/lib/angular-resource.min.js"></script>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!--JSON Editor-->
     <script src="js/lib/jsoneditor/jsoneditor.min.js"></script>
     <script src="js/lib/ng-jsoneditor.js"></script>
+    <script src="js/lib/treegrid/jquery.treegrid.bootstrap3.js"></script>
 
     <!--Custom-->
     <script src="js/main.js"></script>
     <script src="js/controllers/regras-controller.js"></script>
     <script src="js/controllers/regra-controller.js"></script>
     <script src="js/controllers/projects-controller.js"></script>
+    <script src="js/controllers/project-controller.js"></script>
     <script src="js/controllers/editor-controller.js"></script>
+    <!--<script src="js/directives/minhas-diretivas.js"></script>-->
 
+    <script>
+        // menu active change
+        $(document).ready(function () {
+            $('ul.nav > li').click(function (e) {
+                $('ul.nav > li').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -49,12 +63,12 @@
             <nav>
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation" class="active"><a href="/">Home</a></li>
-                    <!--<li role="presentation"><a href="#">Create Project</a></li>-->
+                    <li role="presentation"><a href="admin/projects">Projects</a></li>
                     <li role="presentation"><a href="admin/regras">Rules</a></li>
                     <!--<li role="presentation"><a href="#">Setup</a></li>-->
                 </ul>
             </nav>
-            <h3 class="text-muted">Mockaut</h3>
+            <h3 class="text-muted">Mockaut Server</h3>
         </div>
 
         <!--CONTENT-->
