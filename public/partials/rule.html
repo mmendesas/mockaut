@@ -1,8 +1,8 @@
 <div class="page-header text-center">
-    <h1>{{regra.name}}</h1>
+    <h1>{{rule.name}}</h1>
 </div>
 
-<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+<p ng-show="customMessage.length" class="alert alert-info">{{customMessage}}</p>
 
 <form novalidate name="formulario" class="row" ng-submit="submeter()">
     <div class="row">
@@ -10,7 +10,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Name</label>
-                    <input ng-model="regra.name" name="name" class="form-control" required ng-maxlength="20">
+                    <input ng-model="rule.name" name="name" class="form-control" required ng-maxlength="20">
                     <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.name.$error.required">
                         Name is required
                     </span>
@@ -22,7 +22,7 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label>Project</label>
-                    <select name="project" class="form-control" required ng-controller="ProjectsController" ng-model="regra.project" ng-options="project._id as project.name for project in projects">
+                    <select name="project" class="form-control" required ng-controller="ProjectsController" ng-model="rule.project" ng-options="project._id as project.name for project in projects">
                         <option value="">Selecione o projeto</option>
                     </select>
                     <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.project.$error.required">
@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <label>Description</label>
-            <input ng-model="regra.description" name="description" class="form-control" required>
+            <input ng-model="rule.description" name="description" class="form-control" required>
             <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.description.$error.required">
                 URL is required
             </span>
@@ -42,7 +42,7 @@
 
         <div class="form-group">
             <label>Path</label>
-            <input ng-model="regra.path" name="path" class="form-control">
+            <input ng-model="rule.path" name="path" class="form-control">
         </div>
     </div>
 
@@ -104,7 +104,7 @@
 
     <div class="row text-center">
         <button type="submit" class="btn btn-primary btn-lg form" ng-disabled="formulario.$invalid">Save</button>
-        <a href="/admin/regras" class="btn btn-primary btn-lg">Back</a>
+        <a href="/admin/rules" class="btn btn-primary btn-lg">Cancel</a>
     </div>
 </form>
 

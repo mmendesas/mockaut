@@ -1,4 +1,4 @@
-angular.module('mockaut', ['ngAnimate', 'ngRoute', 'ngResource', 'ng.jsoneditor'])
+angular.module('mockaut', ['ngAnimate', 'ngRoute', 'meusServicos', 'ng.jsoneditor'])
     .config(function ($routeProvider, $locationProvider) {
 
         $locationProvider.html5Mode(true);
@@ -10,19 +10,19 @@ angular.module('mockaut', ['ngAnimate', 'ngRoute', 'ngResource', 'ng.jsoneditor'
         /**
          * Rules routes
          */
-        $routeProvider.when('/admin/regras', {
-            templateUrl: 'partials/regras.html',
-            controller: 'RegrasController'
+        $routeProvider.when('/admin/rules', {
+            templateUrl: 'partials/rules.html',
+            controller: 'RulesController'
         });
 
-        $routeProvider.when('/admin/regras/new', {
-            templateUrl: 'partials/regra.html',
-            controller: 'RegraController'
+        $routeProvider.when('/admin/rules/new', {
+            templateUrl: 'partials/rule.html',
+            controller: 'RuleController'
         });
 
-        $routeProvider.when('/admin/regras/edit/:ruleID', {
-            templateUrl: 'partials/regra.html',
-            controller: 'RegraController'
+        $routeProvider.when('/admin/rules/edit/:ruleID', {
+            templateUrl: 'partials/rule.html',
+            controller: 'RuleController'
         });
 
         /**
@@ -34,9 +34,15 @@ angular.module('mockaut', ['ngAnimate', 'ngRoute', 'ngResource', 'ng.jsoneditor'
         });
 
         $routeProvider.when('/admin/projects/new', {
-            templateUrl:'partials/project.html',
+            templateUrl: 'partials/project.html',
             controller: 'ProjectController'
-        })
+        });
+
+        $routeProvider.when('/admin/projects/edit/:projectID', {
+            templateUrl: 'partials/project.html',
+            controller: 'ProjectController'
+        });
 
         $routeProvider.otherwise({ redirectTo: '/admin' });
+        
     });

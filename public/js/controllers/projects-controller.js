@@ -1,27 +1,24 @@
-angular.module('mockaut').controller('ProjectsController', function ($scope, $http) {
+angular.module('mockaut').controller('ProjectsController', function ($scope, resourceProject) {
 
     $scope.projects = [];
     $scope.filtro = '';
-    $scope.message = '';
+    $scope.customMessage = '';
 
-    $http.get('v1/projects')
-        .success(function (projects) {
-            $scope.projects = projects;
-        })
-        .error(function (err) {
-            console.log(err);
-        });
+    resourceProject.query(function (projects) {
+        $scope.projects = projects;
+    }, function (err) {
+        console.log(err);
+    });
 
     $scope.remove = function (project) {
-        $http.delete('v1/projects' + project._id)
-            .success(function () {
-                var idxProject = $scope.projects.indexOf(project);
-                $scope.projects.splice(idxProject, 1); //remove from the list
-                $scope.message = 'Project ' + project.name + ' removido com sucesso';
-            })
-            .error(function (err) {
-                $scope.mensagem = 'Não foi possivel remover o projeto ' + project.name;
-            });
+        resourceProject.delete({ projectID: project._id }, function () {
+            var idxProject = $scope.projects.indexOf(project);
+            $scope.projects.splice(idxProject, 1); //remove from the list
+            $scope.customMessage = 'Project ' + project.name + ' successfully removed';
+        }, function (err) {
+            console.log(err);
+            $scope.customMessage = 'Unable to remove the project ' + project.name;
+        });
     };
-    
+
 });

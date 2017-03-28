@@ -2,17 +2,32 @@
     <h1>Project Configuration</h1>
 </div>
 
-<p ng-show="message.length" class="alert alert-info">{{message}}</p>
+<p ng-show="customMessage.length" class="alert alert-info">{{customMessage}}</p>
 
 <form novalidate name="formulario" class="row" ng-submit="submeter()">
     <div class="row">
+
         <div class="form-group">
-            <label>Select File</label>
-            <span class='form-control' id="upload-file-info"></span>
-            <label class="btn btn-primary" for="my-file-selector">
-                    <input  file-upload  id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());angular.element(this).scope().fileSelected(this.files);">
-                   Browse File
-            </label>
+            <div class="row">
+                <div class="">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h2>Select Swagger File</h2>                            
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar"></div>
+                            </div>                            
+                            <label class="btn btn-primary" for="upload-input">                    
+                                <input id="upload-input" type="file" style="display:none;" onchange="angular.element(this).scope().uploadFile(this.files);">
+                                Upload File
+                            </label>
+                            <button class="btn btn-primary" ng-click="buildProject()">
+                                Build Project
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -46,7 +61,7 @@
 
     <div class="row text-center pull-right">
         <button type="submit" class="btn btn-primary form" ng-disabled="formulario.$invalid">Save</button>
-        <a href="/admin/projects" class="btn btn-primary">Back</a>
+        <a href="/admin/projects" class="btn btn-primary">Cancel</a>
     </div>
 </form>
 

@@ -2,8 +2,8 @@
     <h1 class="text-center">Projects</h1>
 </div>
 
-<p ng-show="mensagem.length" class="alert alert-info">
-    {{mensagem}}
+<p ng-show="customMessage.length" class="alert alert-info">
+    {{customMessage}}
 </p>
 
 <div class="row">
@@ -27,8 +27,10 @@
                 <td>{{project.name}}</td>
                 <td>{{project.description}}</td>
                 <td>
-                    <a href="/admin/projects/edit/{{project._id}}" class="btn btn-primary">Edit</a>
-                    <button href="" class="btn btn-danger" ng-click="remove(project)">Remove</button>
+                    <div class="pull-right">
+                        <a href="/admin/projects/edit/{{project._id}}" class="btn btn-primary">Edit</a>
+                        <button href="" class="btn btn-danger" ng-click="remove(project)">Remove</button>
+                    </div>
                 </td>
             </tr>
         </tbody>

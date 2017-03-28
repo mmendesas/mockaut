@@ -15,7 +15,7 @@ parser.dereference("/home/mmendes/Developer/estudo/mymock/samples/oms.swagger.js
         helperSwagger.createResponses();
 
         // create the HAR responses
-        var listItems = helperSwagger.getResponses();
+        var listItems = helperSwagger.getResponses();                
 
         // putting the HAR in mockbin
         _.each(listItems, function (item) {

@@ -2,8 +2,8 @@
     <h1 class="text-center">Rules</h1>
 </div>
 
-<p ng-show="mensagem.length" class="alert alert-info">
-    {{mensagem}}
+<p ng-show="customMessage.length" class="alert alert-info">
+    {{customMessage}}
 </p>
 
 <div class="row">
@@ -26,14 +26,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="regra in regras | filter: filtro">
-                <td>{{regra.name}}</td>
-                <td>{{regra.path}}</td>
-                <td>{{regra.project}}</td>
-                <td>{{regra.description}}</td>
+            <tr ng-repeat="rule in rules | filter: filtro">
+                <td>{{rule.name}}</td>
+                <td>{{rule.path}}</td>
+                <td>{{rule.project}}</td>
+                <td>{{rule.description}}</td>
                 <td>
-                    <a href="/admin/regras/edit/{{regra._id}}" class="btn btn-primary">Edit</a>
-                    <button href="" class="btn btn-danger" ng-click="remover(regra)">Remove</button>
+                    <div class="pull-right">
+                        <a href="/admin/rules/edit/{{rule._id}}" class="btn btn-primary">Edit</a>
+                        <button href="" class="btn btn-danger" ng-click="remover(rule)">Remove</button>
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -44,8 +46,8 @@
 
 <div class="row text-center">
     <div class="btn-toolbar">
-        <a href="/" class="btn btn-primary">Voltar</a>
-        <a href="admin/regras/new" class="btn btn-primary">New Rule</a>
+        <a href="/" class="btn btn-primary">Back</a>
+        <a href="admin/rules/new" class="btn btn-primary">New Rule</a>
     </div>
 </div>
 <br />

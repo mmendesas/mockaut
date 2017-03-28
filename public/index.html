@@ -12,14 +12,17 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Mockaut</title>
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="js/lib/jsoneditor/jsoneditor.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway' type='text/css'>
 
     <!-- Custom styles for this template -->
     <link href="css/jumbotron-narrow.css" rel="stylesheet">
     <link href="css/jquery.treegrid.css" rel="stylesheet">
+    <!--<link href="css/styles.css" rel="stylesheet">-->
 
     <!--Angular-->
     <script src="js/lib/angular.min.js"></script>
@@ -33,25 +36,30 @@
     <!--JSON Editor-->
     <script src="js/lib/jsoneditor/jsoneditor.min.js"></script>
     <script src="js/lib/ng-jsoneditor.js"></script>
-    <script src="js/lib/treegrid/jquery.treegrid.bootstrap3.js"></script>
+    <!--<script src="js/lib/treegrid/jquery.treegrid.bootstrap3.js"></script>-->
 
     <!--Custom-->
     <script src="js/main.js"></script>
-    <script src="js/controllers/regras-controller.js"></script>
-    <script src="js/controllers/regra-controller.js"></script>
+
+    <script src="js/controllers/rules-controller.js"></script>
+    <script src="js/controllers/rule-controller.js"></script>
     <script src="js/controllers/projects-controller.js"></script>
     <script src="js/controllers/project-controller.js"></script>
     <script src="js/controllers/editor-controller.js"></script>
+    <script src="js/services/meus-servicos.js"></script>
+
     <!--<script src="js/directives/minhas-diretivas.js"></script>-->
 
     <script>
+        var last;
         // menu active change
         $(document).ready(function () {
             $('ul.nav > li').click(function (e) {
                 $('ul.nav > li').removeClass('active');
                 $(this).addClass('active');
+                last = $(this);
             });
-        });
+        });      
     </script>
 </head>
 
@@ -64,7 +72,7 @@
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation" class="active"><a href="/">Home</a></li>
                     <li role="presentation"><a href="admin/projects">Projects</a></li>
-                    <li role="presentation"><a href="admin/regras">Rules</a></li>
+                    <li role="presentation"><a href="admin/rules">Rules</a></li>
                     <!--<li role="presentation"><a href="#">Setup</a></li>-->
                 </ul>
             </nav>
