@@ -12,18 +12,17 @@
                 <div class="">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <h2>Select Swagger File</h2>                            
+                            <h3>Select Swagger File</h3>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success" role="progressbar"></div>
-                            </div>                            
+                            </div>
                             <label class="btn btn-primary" for="upload-input">                    
                                 <input id="upload-input" type="file" style="display:none;" onchange="angular.element(this).scope().uploadFile(this.files);">
                                 Upload File
                             </label>
-                            <button class="btn btn-primary" ng-click="buildProject()">
+                            <a class="btn btn-primary" ng-click="buildProject()">
                                 Build Project
-                            </button>
-
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -54,6 +53,32 @@
             </div>
         </div>
 
+        <div class="row">
+            <table class="table table-bordered table-hover table-sm">
+                <caption><h3>Locations</h3></caption>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Path</th>
+                        <th>MockID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="location in project.locations">
+                        <td>{{location.method}}</td>
+                        <td>{{location.description}}</td>
+                        <td>{{location.path}}</td>
+                        <td>
+                            <a href="/{{project.name}}/{{location.path}}">{{location.mockID}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <!-- fim row -->
+
     </div>
 
     <br />
@@ -61,7 +86,7 @@
 
     <div class="row text-center pull-right">
         <button type="submit" class="btn btn-primary form" ng-disabled="formulario.$invalid">Save</button>
-        <a href="/admin/projects" class="btn btn-primary">Cancel</a>
+        <a href="/admin/projects" class="btn btn-primary">Back</a>
     </div>
 </form>
 

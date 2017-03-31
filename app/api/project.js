@@ -1,14 +1,14 @@
-var formidable = require('formidable');
-var path = require('path');
-var fs = require('fs');
+var helperUpload = require('../helper/upload');
 var api = {}
 var COUNT = 3;
 
+var mockaut = require('../middleware/mockaut')
+
 var projects = [
-    { _id: 1, name: 'OMS', description: 'atirei o pau no gato to to' },
-    { _id: 2, name: 'TED', description: 'talking to me' },
-    { _id: 3, name: 'WALNUT', description: 'walnut teste' }
-]
+    { _id: 1, name: 'OMS', description: 'atirei o pau no gato to to', locations: [] },
+    { _id: 2, name: 'TED', description: 'ciranda cirandinha', locations: [] },
+    { _id: 3, name: 'WALNUT', description: 'acredite, se quiser', locations: [] }
+];
 
 //GET /v1/projects
 api.list = function (req, res) {
@@ -21,7 +21,7 @@ api.add = function (req, res) {
     project._id = ++COUNT;
     projects.push(project);
     res.json(project);
-}
+};
 
 //GET /v1/projects/:id
 api.findById = function (req, res) {
@@ -29,7 +29,7 @@ api.findById = function (req, res) {
         return project._id == req.params.id;
     });
     res.json(project);
-}
+};
 
 //DELETE /v1/projects/:id
 api.removeById = function (req, res) {
@@ -37,7 +37,7 @@ api.removeById = function (req, res) {
         return project._id != req.params.id;
     });
     res.sendStatus(204);
-}
+};
 
 //PUT /v1/projects/:id
 api.update = function (req, res) {
@@ -50,47 +50,19 @@ api.update = function (req, res) {
 
     projects[idx] = project;
     res.sendStatus(200);
-}
+};
+
+//POST /upload
+api.uploadFile = function (req, res) {
+    helperUpload.uploadFile(req, res);
+};
 
 api.listByProject = function (req, res) {
-
     var projId = parseInt(req.params.projectId);
     var project = projects.find(function (project) {
         return project._id == projId;
     });
     res.json(project);
 };
-
-api.uploadFile = function (req, res) {
-    // create an incoming form object
-    var form = new formidable.IncomingForm();
-
-    // specify that we want to allow the user to upload multiple files in a single request
-    form.multiples = true;
-
-    // store all uploads in the /uploads directory    
-    form.uploadDir = path.join(__dirname, '../../uploads');    
-
-    // every time a file has been uploaded successfully,
-    // rename it to it's orignal name
-    form.on('file', function (field, file) {
-        fs.rename(file.path, path.join(form.uploadDir, file.name));
-    });
-
-    // log any errors that occur
-    form.on('error', function (err) {
-        console.log('An error has occured: \n' + err);
-    });
-
-    // once all the files have been uploaded, send a response to the client
-    form.on('end', function () {
-        res.end('success');
-    });
-
-    // parse the incoming request containing the form data
-    form.parse(req);
-};
-
-
 
 module.exports = api;

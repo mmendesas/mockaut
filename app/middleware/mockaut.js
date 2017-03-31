@@ -2,39 +2,50 @@ var http = require('http');
 var httpProxy = require('http-proxy');
 var proxy = httpProxy.createProxyServer({});
 var unirest = require("unirest");
+var cached = require('./cached-items');
 
-var rules = [
-    { method: 'GET', path: '/groselha', url: '54c1e591-4f42-438a-b583-03cff0d910f1' },
-    { method: 'GET', path: '/hello', url: '0893d367-97c2-4901-93af-bf17ffcc4da9' },
-    { method: 'PUT', path: '/hello', url: 'GROSELHASDFASDFASDFASDFADF' }
-];
+var mockautMW = {
 
-var mid = function (options) {
+    run: function () {
 
-    return function (req, res, next) {
+        return function (req, res, next) {
+                        
+            var projectName = req.url.match(/(\/\w+)/)[1];
+            var path = req.url.replace(projectName, '');
+            projectName = projectName.match(/(\w+)/)[1];
 
-        console.log('%s %s', req.method, req.url);
+            // console.log('project 55', projectName)
+            // console.log('path', path);
+            // console.log('url', req.url);
+            // console.log('TESTOLA', cached.locations.length);
 
-        var rule = rules.find(x => x.path === req.url && x.method === req.method);
+            var rule = cached.locations.find(
+                x =>
+                    x.path === path &&
+                    x.method.toUpperCase() === req.method.toUpperCase() &&
+                    x.project.toUpperCase() === projectName.toUpperCase()
+            );
 
-        if (rule) {
+            if (rule) {
 
-            var uniReq = unirest(req.method, "http://mockbin.org/bin/" + rule.url);
+                // console.log('%s %s', req.method, req.url);
 
-            uniReq.end(function (response) {
+                var uniReq = unirest(req.method, "http://localhost:8080/bin/" + rule.mockID);
 
-                if (response.error) throw new Error(response.error);
+                uniReq.end(function (response) {
 
-                console.log(response.statusCode);
-                console.log(JSON.stringify(response.headers));
+                    // console.log(response.statusCode);
+                    // console.log(JSON.stringify(response.headers));
 
-                res.send(response.body);
-            });
+                    if (response.error) throw new Error(response.error);
+                    res.send(response.body);
+                });
 
-        } else {
-            next();
+            } else {
+                next();
+            }
         }
     }
 }
 
-module.exports = mid;
+module.exports = mockautMW;

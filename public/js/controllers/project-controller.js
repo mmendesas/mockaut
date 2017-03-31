@@ -1,4 +1,4 @@
-angular.module('mockaut').controller('ProjectController', function ($scope, $http, $routeParams, resourceProject) {
+angular.module('mockaut').controller('ProjectController', function ($scope, $http, $routeParams, resourceProject, resourceLocation) {
 
     $scope.project = {};
     $scope.customMessage = '';
@@ -15,7 +15,7 @@ angular.module('mockaut').controller('ProjectController', function ($scope, $htt
 
     $scope.submeter = function () {
         if ($scope.formulario.$valid) {
-
+            //update current project
             if ($routeParams.projectID) {
                 resourceProject.update({ projectID: $scope.project._id }, $scope.project, function () {
                     $scope.customMessage = 'Project ' + $scope.project.name + ' alterado com sucesso';
@@ -23,8 +23,9 @@ angular.module('mockaut').controller('ProjectController', function ($scope, $htt
                     console.log(err);
                     $scope.customMessage = 'Não foi possível alterar o Project' + $scope.project.name;
                 });
-
-            } else {
+            }
+            //create new project
+            else {
                 resourceProject.save($scope.project, function () {
                     $scope.project = {};
                     $scope.customMessage = 'Project incluído com sucesso';
@@ -33,6 +34,15 @@ angular.module('mockaut').controller('ProjectController', function ($scope, $htt
                     $scope.customMessage = 'Não foi possível incluir o Project';
                 });
             }
+
+            // send to locations
+            // resourceLocation.updateCache({ locationID: $scope.project.name }, $scope.project, function () {
+
+            // }, function (err) {
+            //     console.log(err);
+            // });
+
+            // console.log('PROJECTO', $scope.project);
         }
     };
 
@@ -95,14 +105,20 @@ angular.module('mockaut').controller('ProjectController', function ($scope, $htt
 
     $scope.buildProject = function (req, res) {
 
-        if (currentFilename) {
+        resourceLocation.query(function (locations) {
+            $scope.project.locations = locations;
+        }, function (err) {
+            console.log(err);
+        });
 
-            console.log('clicou na bagaça', currentFilename);
+        // if (currentFilename) {
 
-            // bate na api enviando nome do arquivo
+        //     console.log('clicou na bagaça', currentFilename);
 
-            //preenche os campos e a tabela com os dados
-        }
+        //     // bate na api enviando nome do arquivo
+
+        //     //preenche os campos e a tabela com os dados
+        // }
 
     };
 

@@ -1,5 +1,6 @@
 var unirest = require('unirest');
 var helperString = require('./string');
+var async = require('async');
 
 var request = {
 
@@ -21,7 +22,7 @@ var request = {
             .type('json')
             .send(har)
             .end(function (response) {
-                console.log(response.body);
+                // console.log(response.body);                    
                 callback(response.body);
             });
     }

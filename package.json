@@ -10,6 +10,7 @@
   "author": "Marcio Mendes (mmendes.as@gmail.com)",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.2.0",
     "body-parser": "^1.17.1",
     "consign": "^0.1.2",
     "express": "^4.15.2",
@@ -19,10 +20,15 @@
     "jsoneditor": "^5.5.11",
     "lodash": "^4.17.4",
     "mockbin": "^1.6.3",
+    "mongoose": "^4.9.2",
     "ng-jsoneditor": "^1.0.0",
     "swagger-client": "^2.1.32",
     "swagger-parser": "^3.4.1",
     "swagger-tools": "^0.10.1",
-    "unirest": "^0.5.1"
+    "unirest": "^0.5.1",
+    "wait.for": "^0.6.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
