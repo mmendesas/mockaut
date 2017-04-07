@@ -1,4 +1,4 @@
-var HAR = require('har');
+var HAR  = require('har');
 var http = require('http');
 
 var har = {

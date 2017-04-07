@@ -1,5 +1,5 @@
 var cached = require('../middleware/cached-items');
-var api = {}
+var api    = {}
 
 var locationList = [
     { _id: 1, description: 'Order found', code: '200', method: 'get', path: '/orders/{orderNumber}/history', mockID: '39a0abf6-4f0c-4165-9769-cfc4837415ab', project: 'oms' },

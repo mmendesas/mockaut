@@ -1,6 +1,6 @@
 var formidable = require('formidable');
-var path = require('path');
-var fs = require('fs');
+var path       = require('path');
+var fs         = require('fs');
 
 var upload = {
 

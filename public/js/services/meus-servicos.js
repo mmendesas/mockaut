@@ -2,7 +2,8 @@ angular.module('meusServicos', ['ngResource'])
 
     .factory('resourceRule', function ($resource) {
         return $resource('v1/rules/:ruleID', null, {
-            update: { method: 'PUT' }
+            update: { method: 'PUT' },
+            teste: {method: 'GET'}
         });
     })
     .factory('resourceProject', function ($resource) {

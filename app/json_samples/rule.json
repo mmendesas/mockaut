@@ -1,0 +1,14 @@
+{
+    "project_id": "Walnut",
+    "name": "Rule M 002",
+    "description": "simple rule with get method",
+    "sequence": 2,
+    "isDefault": true,
+    "path": "/hello227",
+    "method": "GET",
+    "mockID": "47c7d7aa-4744-4575-ac79-6dae41cf1da7",
+    "expected": {},
+    "response": {
+        "text": "heloo world 6547"
+    }
+}

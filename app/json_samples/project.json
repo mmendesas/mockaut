@@ -1,0 +1,54 @@
+{
+    "name": "Walnut",
+    "description": "Web Test Project with simple APIs",
+    "rules": {
+        "default": [
+            {
+                "name": "Rule 001",
+                "description": "simple rule with get method",
+                "sequence": 0,
+                "path": "/hello",
+                "method": "GET",
+                "mockID": "47c7d7aa-4744-4575-ac79-6dae41cf1da7",
+                "expected": {},
+                "response": {}
+            },
+            {
+                "name": "Rule 002",
+                "description": "simple rule with get method",
+                "sequence": 0,
+                "path": "/hello2",
+                "method": "GET",
+                "mockID": "47c7d7aa-4744-4575-ac79-6dae41cf1da7",
+                "expected": {},
+                "response": {}
+            }
+        ],
+        "match": [
+            {
+                "name": "Rule M 001",
+                "description": "simple rule with get method",
+                "sequence": 1,
+                "path": "/hello887",
+                "method": "GET",
+                "mockID": "47c7d7aa-4744-4575-ac79-6dae41cf1da7",
+                "expected": {},
+                "response": {
+                    "text": "heloo world 001"
+                }
+            },
+            {
+                "name": "Rule M 002",
+                "description": "simple rule with get method",
+                "sequence": 2,
+                "path": "/hello227",
+                "method": "GET",
+                "mockID": "47c7d7aa-4744-4575-ac79-6dae41cf1da7",
+                "expected": {},
+                "response": {
+                    "text": "heloo world 6547"
+                }
+            }
+        ]
+    }
+}

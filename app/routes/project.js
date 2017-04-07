@@ -9,7 +9,5 @@ module.exports = function (app) {
     app.route('/v1/projects/:id')
         .get(api.findById)
         .delete(api.removeById)
-        .put(api.update);
-
-    app.post('/upload', api.uploadFile);
+        .put(api.update);    
 }

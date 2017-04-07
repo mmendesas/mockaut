@@ -17,6 +17,7 @@
     "formidable": "^1.1.1",
     "har": "^1.0.0",
     "http-proxy": "^1.16.2",
+    "jasmine": "^2.5.3",
     "jsoneditor": "^5.5.11",
     "lodash": "^4.17.4",
     "mockbin": "^1.6.3",

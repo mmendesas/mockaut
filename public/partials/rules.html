@@ -20,17 +20,17 @@
             <tr>
                 <th>Name</th>
                 <th>Path</th>
-                <th>Project</th>
                 <th>Description</th>
-                <th>Options</th>
+                <!--<th>Project</th>-->
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="rule in rules | filter: filtro">
                 <td>{{rule.name}}</td>
                 <td>{{rule.path}}</td>
-                <td>{{rule.project}}</td>
                 <td>{{rule.description}}</td>
+                <!--<td>{{rule.project_id}}</td>-->
                 <td>
                     <div class="pull-right">
                         <a href="/admin/rules/edit/{{rule._id}}" class="btn btn-primary">Edit</a>

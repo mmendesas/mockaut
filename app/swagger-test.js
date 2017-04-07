@@ -1,10 +1,10 @@
 var SwaggerParser = require('swagger-parser');
-var parser = new SwaggerParser();
+var parser        = new SwaggerParser();
 var helperSwagger = require('./helper/swagger');
-var helperReq = require('./helper/request');
-var Table = require('cli-table');
-var _ = require('lodash');
-var async = require("async");
+var helperReq     = require('./helper/request');
+var Table         = require('cli-table');
+var _             = require('lodash');
+var async         = require("async");
 
 console.time('elapsed');
 
@@ -32,9 +32,7 @@ parser.dereference("/home/mmendes/Developer/estudo/mymock/samples/oms.swagger.js
 
             console.log(table.toString());
         });
-
     });
-
 
 function createRelatedMockIDs(listItems, callback) {
     //create all mockID relations
@@ -50,7 +48,5 @@ function createRelatedMockIDs(listItems, callback) {
             callback(listItems);
         });
 };
-
-
 
 console.timeEnd('elapsed');

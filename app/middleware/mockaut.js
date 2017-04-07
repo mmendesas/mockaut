@@ -1,10 +1,10 @@
-var http = require('http');
+var http      = require('http');
 var httpProxy = require('http-proxy');
-var proxy = httpProxy.createProxyServer({});
-var unirest = require("unirest");
-var cached = require('./cached-items');
+var proxy     = httpProxy.createProxyServer({});
+var unirest   = require("unirest");
+var cached    = require('./cached-items');
 
-var mockautMW = {
+var mockautmid = {
 
     run: function () {
 
@@ -48,4 +48,4 @@ var mockautMW = {
     }
 }
 
-module.exports = mockautMW;
+module.exports = mockautmid;

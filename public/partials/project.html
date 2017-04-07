@@ -3,74 +3,115 @@
 </div>
 
 <p ng-show="customMessage.length" class="alert alert-info">{{customMessage}}</p>
+<p ng-show="customErrorMessage.length" class="alert alert-warning">{{customErrorMessage}}</p>
 
 <form novalidate name="formulario" class="row" ng-submit="submeter()">
     <div class="row">
 
-        <div class="form-group">
-            <div class="row">
-                <div class="">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <h3>Select Swagger File</h3>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar"></div>
-                            </div>
-                            <label class="btn btn-primary" for="upload-input">                    
-                                <input id="upload-input" type="file" style="display:none;" onchange="angular.element(this).scope().uploadFile(this.files);">
-                                Upload File
-                            </label>
-                            <a class="btn btn-primary" ng-click="buildProject()">
-                                Build Project
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input ng-model="project.name" name="name" class="form-control" required ng-maxlength="20">
-                    <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.name.$error.required">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5>Basic Info</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input ng-model="project.name" name="name" class="form-control" required ng-maxlength="20">
+                            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.name.$error.required">
                         Name is required
                     </span>
-                    <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.name.$error.maxlength">
+                            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.name.$error.maxlength">
                         Name must be a maximum of 20 characters
                     </span>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <label>Description</label>
-                    <input ng-model="project.description" name="description" class="form-control" required>
-                    <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.description.$error.required">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input ng-model="project.description" name="description" class="form-control" required>
+                            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.description.$error.required">
                         Description is required
                     </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- end of row-->
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5>Upload File</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar"></div>
+                    </div>
+                    <label class="btn btn-primary" for="upload-input">
+                        <input id="upload-input" type="file" style="display:none;" onchange="angular.element(this).scope().uploadFile(this.files);">
+                        Upload File
+                    </label>
+                    <a class="btn btn-primary" ng-click="buildProject()" ng-disabled="defaultRules.length > 0">Generate Default Rules</a>
                 </div>
             </div>
         </div>
+        <!-- end of row-->
 
         <div class="row">
             <table class="table table-bordered table-hover table-sm">
-                <caption><h3>Locations</h3></caption>
+                <caption>
+                    <h4>Default Rules</h4>
+                </caption>
                 <thead>
                     <tr>
                         <th>Method</th>
+                        <th>Name</th>
                         <th>Description</th>
                         <th>Path</th>
                         <th>MockID</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="location in project.locations">
-                        <td>{{location.method}}</td>
-                        <td>{{location.description}}</td>
-                        <td>{{location.path}}</td>
+                    <tr ng-repeat="rule in defaultRules | filter: {isDefault:true}">
+                        <td>{{rule.method}}</td>
+                        <td>{{rule.name}}</td>
+                        <td>{{rule.description}}</td>
+                        <td>{{rule.path}}</td>
                         <td>
-                            <a href="/{{project.name}}/{{location.path}}">{{location.mockID}}</a>
+                            <a href="{{project.name}}{{rule.path}}">{{rule.mockID}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <!-- fim row -->
+        <div class="row">
+            <table class="table table-bordered table-hover table-sm">
+                <caption>
+                    <h4>Rules</h4>
+                </caption>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Path</th>
+                        <th>MockID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="rule in defaultRules | filter: {isDefault:!true}">
+                        <td>{{rule.method}}</td>
+                        <td>{{rule.name}}</td>
+                        <td>{{rule.description}}</td>
+                        <td>{{rule.path}}</td>
+                        <td>
+                            <a href="{{project.name}}{{rule.path}}">{{rule.mockID}}</a>
                         </td>
                     </tr>
                 </tbody>

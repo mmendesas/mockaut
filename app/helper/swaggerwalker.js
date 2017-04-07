@@ -1,16 +1,15 @@
 var _ = require('lodash');
 var helperSchema = require('./schema');
 var helperHar = require('./har');
-var item = require('../models/item');
 
-var swagger = {
+var swaggerwalker = {
 
     api: null,
 
-    itemList: null,
+    endpointList: [],
 
     createResponses: function () {
-        itemList = [];
+        myList = [];
 
         // get all paths        
         _.each(this.api.paths, function (path, pathKey) {
@@ -20,7 +19,7 @@ var swagger = {
             //Print each path parameter
             _.each(path, function (operation, operKey) {
                 // console.log('OPERATION', operKey);                
-                helperHar.contentType = operation.produces;
+                helperHar.contentType = operation.produces || "application/json";
 
                 _.each(operation.responses, function (response, respKey) {
                     // console.log('  ', 'RESPO', respKey);
@@ -49,24 +48,26 @@ var swagger = {
                     var harResp = helperHar.createResponse(respKey, response, itemObj);
                     // console.log('\n  ', 'HAR', JSON.stringify(harResp));
 
-                    item = {
-                        description: response.description,
+                    var myEndpoint = {
+                        description: operation.summary || response.description,
                         operation: operKey,
                         path: pathKey,
                         respCode: respKey,
                         responseHAR: harResp
                     }
 
-                    itemList.push(item);
+                    myList.push(myEndpoint);
 
                 });
             });
         });
+
+        endpointList = myList;
     },
 
     getResponses: function () {
-        return itemList;
+        return endpointList;
     }
 };
 
-module.exports = swagger;
+module.exports = swaggerwalker;

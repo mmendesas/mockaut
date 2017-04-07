@@ -13,9 +13,8 @@ angular.module('mockaut').controller('RuleController', function ($scope, $routeP
     }
 
     $scope.submeter = function () {
-
         if ($scope.formulario.$valid) {
-
+            //update current rule
             if ($routeParams.ruleID) {
                 resourceRule.update({ ruleID: $scope.rule._id }, $scope.rule, function () {
                     $scope.customMessage = 'Rule ' + $scope.rule.name + ' successfully updated';
@@ -23,8 +22,13 @@ angular.module('mockaut').controller('RuleController', function ($scope, $routeP
                     console.log(err);
                     $scope.customMessage = 'Unable to update the Rule' + $scope.rule.name;
                 });
+            }
+            // create new rule
+            else {
 
-            } else {
+                $scope.rule.isDefault = false;
+                console.log('minha Regra', $scope.rule);
+
                 resourceRule.save($scope.rule, function () {
                     $scope.rule = {};
                     $scope.customMessage = 'Rule successfully included';
@@ -32,7 +36,6 @@ angular.module('mockaut').controller('RuleController', function ($scope, $routeP
                     console.log(err);
                     $scope.customMessage = 'Unable to save the Rule';
                 });
-
             }
         }
     };
@@ -42,6 +45,5 @@ angular.module('mockaut').controller('RuleController', function ($scope, $routeP
     var jsonRsp = { "Array": [1, 2, 3], "Boolean": true, "Null": null, "Number": 123, "Object": { "a": "b", "c": "d" }, "String": "Hello World Response" };
     $scope.jsonExpected = { data: jsonExp, options: { mode: 'tree' } };
     $scope.jsonResponse = { data: jsonRsp, options: { mode: 'tree' } };
-
 
 });
