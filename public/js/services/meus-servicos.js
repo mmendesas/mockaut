@@ -10,10 +10,7 @@ angular.module('meusServicos', ['ngResource'])
         return $resource('v1/projects/:projectID', null, {
             update: { method: 'PUT' }
         });
-    })
-    .factory('resourceLocation', function ($resource) {
-        return $resource('v1/locations/:locationID', null, {});
-    })
+    })    
     .factory('rulesRegistration', function (resourceRule, $q) {
         var myService = {};
 

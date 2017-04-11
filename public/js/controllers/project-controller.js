@@ -17,7 +17,7 @@ angular.module('mockaut').controller('ProjectController', function ($scope, $htt
     }
 
     $scope.submeter = function () {
-        
+
         cleanMessages();
 
         if ($scope.formulario.$valid) {
@@ -43,7 +43,7 @@ angular.module('mockaut').controller('ProjectController', function ($scope, $htt
         }
     };
 
-    $scope.uploadFile = function (mFiles) {
+    $scope.uploadFile = function (mFiles) {        
 
         cleanMessages();
 

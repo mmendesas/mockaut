@@ -18,41 +18,37 @@ api.processFile = function (req, res) {
 
     helperSwgFile
         .processFile(filepath)
-        .then(function (list) {
-            console.log(list.length);
-            helperSwgFile
-                .createRelatedMockIDsInMockbin(list)
-                .then(function (myEndpointList) {
-                    _.forEach(myEndpointList, function (myEndpoint, index) {
+        .then(function (myEndpointList) {
+            console.log(myEndpointList.length);
+            _.forEach(myEndpointList, function (myEndpoint, index) {
 
-                        // create a rule based on endpoint 
-                        var myRule = {
-                            project_id: projectID,
-                            name: 'Default Rule ' + index,
-                            description: myEndpoint.description,
-                            sequence: index,
-                            isDefault: true,
-                            path: myEndpoint.path,
-                            method: myEndpoint.operation,
-                            mockID: myEndpoint.mockID,
-                            expected: {},
-                            response: {}
-                        }
+                // create a rule based on endpoint 
+                var myRule = {
+                    project_id: projectID,
+                    name: 'Default Rule ' + index,
+                    description: myEndpoint.description,
+                    sequence: index,
+                    isDefault: true,
+                    path: myEndpoint.path,
+                    method: myEndpoint.method,
+                    mockID: 0,
+                    expected: {},
+                    response: myEndpoint.responseHAR
+                }
 
-                        // and save in db
-                        unirest.post('http://localhost:3300/v1/rules')
-                            .headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' })
-                            .send(myRule)
-                            .end(function (response) {
-                                //console.log(response.body);
-                            });
+                // and save in db
+                unirest.post('http://localhost:3300/v1/rules')
+                    .headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' })
+                    .send(myRule)
+                    .end(function (response) {
+                        //console.log(response.body);
                     });
+            });
 
-                    cached.locations.push.apply(cached.locations, locationList);
-                    console.log('cached list updated: ' + cached.locations.length + ' items');
+            cached.currentRules.push.apply(cached.currentRules, myEndpointList);
+            console.log('cached list updated: ' + cached.currentRules.length + ' items');
 
-                    res.sendStatus(204);
-                });
+            res.sendStatus(204);
         })
         .catch(function (err) {
             console.log(err);

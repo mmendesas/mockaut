@@ -1,6 +1,7 @@
 var cachedItems = {
-    locations: [],
-    isLocationReloaded: false
+    currentRules: [],
+    projectList: [],
+    makeReload: true
 }
 
 module.exports = cachedItems;

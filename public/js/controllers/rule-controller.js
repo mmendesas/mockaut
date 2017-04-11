@@ -41,9 +41,8 @@ angular.module('mockaut').controller('RuleController', function ($scope, $routeP
     };
 
     //gambeta minha, arrumar depois
-    var jsonExp = { "Array": [1, 2, 3], "Boolean": true, "Null": null, "Number": 123, "String": "Hello World Expected" };
+    var jsonExp = { "Array": [1, 2, 3], "Boolean": true, "Null": null, "Number": '[2]123', "String": "Hello World Expected" };
     var jsonRsp = { "Array": [1, 2, 3], "Boolean": true, "Null": null, "Number": 123, "Object": { "a": "b", "c": "d" }, "String": "Hello World Response" };
     $scope.jsonExpected = { data: jsonExp, options: { mode: 'tree' } };
     $scope.jsonResponse = { data: jsonRsp, options: { mode: 'tree' } };
-
 });

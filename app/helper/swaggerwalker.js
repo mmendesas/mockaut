@@ -50,7 +50,7 @@ var swaggerwalker = {
 
                     var myEndpoint = {
                         description: operation.summary || response.description,
-                        operation: operKey,
+                        method: operKey,
                         path: pathKey,
                         respCode: respKey,
                         responseHAR: harResp

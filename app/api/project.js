@@ -2,6 +2,7 @@ var api = {}
 var helperUpload = require('../helper/upload');
 var mongoose = require('mongoose');
 var mockaut = require('../middleware/mockaut');
+var cached = require('../middleware/cached-items');
 
 //get the project model
 var model = mongoose.model('Project');
@@ -53,6 +54,7 @@ api.add = function (req, res) {
             console.log(err);
             res.status(500).json(err);
         });
+    cached.makeReload = true;
 };
 
 //PUT /v1/projects/:id

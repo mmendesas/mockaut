@@ -1,5 +1,6 @@
 var api = {}
 var mongoose = require('mongoose');
+var cached = require('../middleware/cached-items');
 
 //get the rule model
 var model = mongoose.model('Rule');
@@ -51,6 +52,8 @@ api.add = function (req, res) {
             console.log(err);
             res.status(500).json(err);
         });
+
+    cached.makeReload = true;
 };
 
 //PUT /v1/rules/:id
@@ -64,6 +67,7 @@ api.update = function (req, res) {
             console.log(err);
             res.status(500).json(err);
         });
+    cached.makeReload = true;
 };
 
 module.exports = api;
