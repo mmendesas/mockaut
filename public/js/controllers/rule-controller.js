@@ -2,6 +2,22 @@ angular.module('mockaut').controller('RuleController', function ($scope, $routeP
 
     $scope.rule = {};
     $scope.customMessage = '';
+    $scope.responseHAR = {
+        "status": 200,
+        "statusText": "OK",
+        "httpVersion": "HTTP/1.1",
+        "headers": [
+            { "Date": new Date().toUTCString() },
+            { "Connection": 'keep-alive' },
+            { "Content-Length": 322 },
+            { "Content-Type": "application/json" },
+        ],
+        "cookies": [],
+        "content": {
+            "mimeType": "text/plain",
+            "text": ""
+        }
+    }
 
     if ($routeParams.ruleID) {
         resourceRule.get({ ruleID: $routeParams.ruleID }, function (rule) {
@@ -13,7 +29,13 @@ angular.module('mockaut').controller('RuleController', function ($scope, $routeP
     }
 
     $scope.submeter = function () {
-        if ($scope.formulario.$valid) {
+
+        //udpdate responseHAR
+        $scope.rule.responseHAR = $scope.responseHAR;
+
+        console.log('HHAR', $scope.rule.responseHAR);
+
+        if ($scope.formulario.$valid && 0 == 5) {
             //update current rule
             if ($routeParams.ruleID) {
                 resourceRule.update({ ruleID: $scope.rule._id }, $scope.rule, function () {
@@ -40,9 +62,4 @@ angular.module('mockaut').controller('RuleController', function ($scope, $routeP
         }
     };
 
-    //gambeta minha, arrumar depois
-    var jsonExp = { "Array": [1, 2, 3], "Boolean": true, "Null": null, "Number": '[2]123', "String": "Hello World Expected" };
-    var jsonRsp = { "Array": [1, 2, 3], "Boolean": true, "Null": null, "Number": 123, "Object": { "a": "b", "c": "d" }, "String": "Hello World Response" };
-    $scope.jsonExpected = { data: jsonExp, options: { mode: 'tree' } };
-    $scope.jsonResponse = { data: jsonRsp, options: { mode: 'tree' } };
 });

@@ -3,14 +3,14 @@ angular.module('meusServicos', ['ngResource'])
     .factory('resourceRule', function ($resource) {
         return $resource('v1/rules/:ruleID', null, {
             update: { method: 'PUT' },
-            teste: {method: 'GET'}
+            teste: { method: 'GET' }
         });
     })
     .factory('resourceProject', function ($resource) {
         return $resource('v1/projects/:projectID', null, {
             update: { method: 'PUT' }
         });
-    })    
+    })
     .factory('rulesRegistration', function (resourceRule, $q) {
         var myService = {};
 

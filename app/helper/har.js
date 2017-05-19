@@ -1,5 +1,6 @@
-var HAR  = require('har');
+var HAR = require('har');
 var http = require('http');
+var _ = require('lodash');
 
 var har = {
 
@@ -26,6 +27,30 @@ var har = {
                 size: textSize
             })
         });
+    },
+
+    createRequestFromExpressReq: function (expressReq) {
+
+        var request = new HAR.Request({
+            method: expressReq.method,
+            url: expressReq.headers['host'] + expressReq.url,
+            httpVersion: expressReq.httpVersion
+        })
+
+        // mount headers        
+        for (var prop in expressReq.headers) {
+            request.addHeader(new HAR.Header({
+                name: prop,
+                value: expressReq.headers[prop]
+            }));
+        }
+
+        //mount queryString
+        request.addQuery(expressReq.query);
+
+        //console.log(request);
+
+        return request;
     }
 };
 

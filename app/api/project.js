@@ -46,15 +46,27 @@ api.removeById = function (req, res) {
 
 //POST /v1/projects
 api.add = function (req, res) {
-    model
-        .create(req.body)
-        .then(function (project) {
-            res.json(project);
-        }, function (err) {
-            console.log(err);
-            res.status(500).json(err);
-        });
-    cached.makeReload = true;
+
+    var projectToSave = req.body;
+
+    model.find({ name: projectToSave.name }, function (err, docs) {
+        if (!docs.length) {
+            model
+                .create(projectToSave)
+                .then(function (project) {
+                    res.location('/v1/projects/' + project._id);
+                    res.status(201).json(project);
+                }, function (err) {
+                    console.log(err);
+                    res.status(500).json(err);
+                });
+            cached.makeReload = true;
+        } else {
+            var msg = "Project [" + projectToSave.name + "] already exists";
+            console.log(msg);
+            res.status(422).send({ "messsage": msg });
+        }        
+    });
 };
 
 //PUT /v1/projects/:id

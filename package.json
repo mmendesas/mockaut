@@ -17,12 +17,12 @@
     "formidable": "^1.1.1",
     "har": "^1.0.0",
     "http-proxy": "^1.16.2",
-    "jasmine": "^2.5.3",
     "jsoneditor": "^5.5.11",
     "lodash": "^4.17.4",
-    "mockbin": "^1.6.3",
     "mongoose": "^4.9.2",
+    "nedb": "^1.8.0",
     "ng-jsoneditor": "^1.0.0",
+    "redis": "^2.7.1",
     "swagger-client": "^2.1.32",
     "swagger-parser": "^3.4.1",
     "swagger-tools": "^0.10.1",
@@ -30,6 +30,10 @@
     "wait.for": "^0.6.6"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "mocha": "^3.3.0",
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0"
   }
 }

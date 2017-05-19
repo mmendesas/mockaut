@@ -89,14 +89,13 @@
                 <div id="jsonExpectedTab">
                     <div ng-controller="RuleController">
                         <div class="col">
-                            <div ng-jsoneditor ng-model="jsonExpected.data" options="jsonExpected.options" style="width: 100%; height: 300px; background-color:#CCFFFF"></div>
+                            <div ng-jsoneditor ng-model="jsonExpected.data" options="{ mode: 'tree' }" style="width: 100%; height: 300px;"></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="panel-footer">
-                <button type="button" class="btn btn-default" ng-click="changeData()">change data</button>
-                <button type="button" class="btn btn-default" ng-click="changeOptions()">change options</button>
+                <label for="">Matches: 0</label>
             </div>
         </div>
 
@@ -105,13 +104,30 @@
                 <h5>Response</h5>
             </div>
             <div class="panel-body">
-                <div id="jsonResponseTab">
-                    <div ng-controller="RuleController">
-                        <div class="col">
-                            <div ng-jsoneditor ng-model="jsonResponse.data" options="jsonResponse.options" style="width: 100%; height: 300px;"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Status Code</label>
+                        <div class="form-group form-inline">
+                            <input ng-model="responseHAR.statusCode" name="name" class="form-control" placeholder="200">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <label>Type</label>
+                        <div class="form-group form-inline">
+                            <input ng-model="responseHAR.content.mimeType" name="name" class="form-control" placeholder="application/json">
                         </div>
                     </div>
                 </div>
+
+                <div id="jsonResponseTab">
+                    <label>Body</label>
+                    <div ng-controller="RuleController">
+                        <div class="col">
+                            <div ng-jsoneditor ng-model="responseHAR.content.text" options="{ mode: 'text' }" style="width: 100%; height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="panel-footer">
                 <div class="col-md-4">

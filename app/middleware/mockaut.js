@@ -2,49 +2,76 @@ var http = require('http');
 var unirest = require("unirest");
 var cached = require('./cached-items');
 var helperString = require('../helper/string');
+var helperHAR = require('../helper/har');
 var _ = require('lodash');
 
-var mockautmid = {
+var mockautMiddleware = {
 
     run: function (app) {
         return function (req, res, next) {
 
-            var projectName = req.url.match(/(\/\w+)/)[1];
-            var path = req.url.replace(projectName, '');
+            var pathname = req._parsedUrl.pathname;
+            var projectName = pathname.match(/(\/\w+)/)[1];
+            var path = pathname.replace(projectName, '');
             projectName = projectName.match(/(\w+)/)[1];
 
-            //console.log(helperString.formatString("URL:{0} --|-- Project:{1} | Path:{2} | Cached:{3}", [req.urlpath, projectName, path, cached.currentRules.length]));
+            // console.log(helperString.formatString("URL:{0} --|-- Project:{1} | Path:{2} | Cached:{3}", [req.url, projectName, path, cached.currentRules.length]));
 
             if (cached.makeReload) {
                 reloadCache();
             }
 
             if (cached.projectList.length > 0) {
-                var projID = cached.projectList.find(x => x.name.toUpperCase() === projectName.toUpperCase());
+                var _project = cached.projectList.find(x => x.name.toUpperCase() === projectName.toUpperCase());
             }
 
-            if (projID) {
-                var rule = cached.currentRules.find(
+            var rule;
+            if (_project) {
+                rule = cached.currentRules.find(
                     x =>
-                        x.path === path &&
-                        x.method.toUpperCase() === req.method.toUpperCase() &&
-                        x.project_id === projID._id
+                        x.match_info.path === path &&
+                        x.match_info.method.toUpperCase() === req.method.toUpperCase() &&
+                        x.match_info.project_name === _project.name
                 );
             }
 
             if (rule) {
-                //console.log('%s %s', req.method, req.url);
 
-                //make response based on HAR file
-                //var resHAR = rule.response;
-                makeResponse(rule.response, res);
+                var reqReceived = helperHAR.createRequestFromExpressReq(req);
 
+                //validate request
+                if (validate(rule.expected, reqReceived)) {
+                    //console.log('%s %s', req.method, req.url);
+
+                    //make response based on HAR file
+                    //var resHAR = rule.response;
+                    makeResponse(rule.response, res);
+                } else {
+                    next();
+                }
             } else {
                 next();
             }
         }
     }
 }
+
+function validate(jsonExpected, request) {
+
+    _.forEach(jsonExpected, function (itemToValidade) {
+
+        if(itemToValidade.match){      
+            //helperString.compare(itemToValidade.method, )      
+        }
+    })
+
+    
+    console.log(request);
+
+    return false;
+}
+
+
 
 function reloadCache() {
     unirest
@@ -77,4 +104,4 @@ function makeResponse(resHAR, res) {
     res.send(resHAR.content.text);
 }
 
-module.exports = mockautmid;
+module.exports = mockautMiddleware;

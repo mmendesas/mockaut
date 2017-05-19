@@ -1,0 +1,108 @@
+{
+    "name": "regra 001",
+    "description": "simple rule with get method",
+    "isDefault": false,    
+    "match_info": {
+        "method": "GET",
+        "project_name": "ProjectA",
+        "path": "/mteste",
+        "sequence": 1
+    },
+    "expected": [
+        {
+            "method": "GET",
+            "match": "equals"
+        },
+        {
+            "url": "http://localhost:3300/path/?param=value",
+            "match": "none"
+        },
+        {
+            "httpVersion": "HTTP/1.1",
+            "match": "none"
+        },
+        {
+            "cookies": []
+        },
+        {
+            "headers": [
+                {
+                    "name": "Connection",
+                    "value": "keep-alive",
+                    "match": "equals"
+                }
+            ]
+        },
+        {
+            "queryString": [
+                {
+                    "name": "param1",
+                    "value": "application/json",
+                    "comment": "",
+                    "match": "none"
+                }
+            ]
+        },
+        {
+            "postData": [
+                {
+                    "mimeType": "application/json",
+                    "match": "equals"
+                },
+                {
+                    "text": "{'mteste':'ss', 'match':'equals'}"
+                },
+                {
+                    "comment": "test",
+                    "match": "none"
+                }
+            ]
+        },
+        {
+            "headersSize": 117,
+            "match": "none"
+        },
+        {
+            "bodySize": 17,
+            "match": "equals",
+            "match": "none"
+        },
+        {
+            "comment": "Order found",
+            "match": "none"
+        }
+    ],
+    "response": {
+        "status": 200,
+        "statusText": "OK",
+        "httpVersion": "HTTP/1.1",
+        "cookies": [],
+        "headers": [
+            {
+                "value": "Tue, 11 Apr 2017 20:40:41 GMT",
+                "name": "Date"
+            },
+            {
+                "value": "keep-alive",
+                "name": "Connection"
+            },
+            {
+                "value": "1953",
+                "name": "Content-Length"
+            },
+            {
+                "value": "application/json",
+                "name": "Content-Type"
+            }
+        ],
+        "content": {
+            "text": "{'mteste': '123'}",
+            "mimeType": "application/json",
+            "size": 17
+        },
+        "redirectURL": "",
+        "headersSize": 117,
+        "bodySize": 17,
+        "comment": "Order found"
+    }
+}

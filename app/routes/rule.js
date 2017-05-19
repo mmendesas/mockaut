@@ -10,4 +10,25 @@ module.exports = function (app) {
         .get(api.findByID)
         .delete(api.removeByID)
         .put(api.update);
+
+    //tests
+    app.get('/user', function (req, res) {
+        res.status(200).json({ name: 'tobi' });
+    });
+
+
+    /**
+     * //local DB routes configuration
+     */
+    var api2 = app.api.v2.rule;
+
+    app.route('/v2/rules')
+        .get(api2.list)
+        .post(api2.add);
+
+    app.route('/v2/rules/:id')
+        .get(api2.findByID)
+        .delete(api2.removeByID)
+        .put(api2.update);
+
 };
