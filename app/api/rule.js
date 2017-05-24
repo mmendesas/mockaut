@@ -45,6 +45,19 @@ api.removeByID = function (req, res) {
         });
 };
 
+//DELETE /v1/rules/byProject/:id
+api.removeByProjectName = function (req, res) {
+    model
+        .remove()
+        .where('match_info.project_name').equals(req.params.id)
+        .then(function () {
+            res.sendStatus(204); // faz acao e nao devolve nada            
+        }, function (err) {
+            console.log(err);
+            res.status(500).json(err);
+        })
+}
+
 //POST /v1/rules
 api.add = function (req, res) {
 

@@ -11,6 +11,8 @@ module.exports = function (app) {
         .delete(api.removeByID)
         .put(api.update);
 
+    app.delete('/v1/rules/byProject/:id', api.removeByProjectName);
+
     //tests
     app.get('/user', function (req, res) {
         res.status(200).json({ name: 'tobi' });

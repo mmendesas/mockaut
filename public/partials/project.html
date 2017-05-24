@@ -77,10 +77,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="rule in defaultRules | filter: {isDefault:true}">
-                        <td>{{rule.method}}</td>
+                        <td>{{rule.match_info.method}}</td>
                         <td>{{rule.name}}</td>
                         <td>{{rule.description}}</td>
-                        <td>{{rule.path}}</td>
+                        <td>{{rule.match_info.path}}</td>
                         <td>
                             <a href="{{project.name}}{{rule.path}}">{{project.name}}{{rule.path}}</a>
                         </td>
@@ -100,16 +100,16 @@
                         <th>Method</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Path</th>                        
-                        <th>MockTest</th>                        
+                        <th>Path</th>
+                        <th>MockTest</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="rule in defaultRules | filter: {isDefault:!true}">
-                        <td>{{rule.method}}</td>
+                        <td>{{rule.match_info.method}}</td>
                         <td>{{rule.name}}</td>
                         <td>{{rule.description}}</td>
-                        <td>{{rule.path}}</td>
+                        <td>{{rule.match_info.path}}</td>
                         <td>
                             <a href="{{project.name}}{{rule.path}}">{{project.name}}{{rule.path}}</a>
                         </td>

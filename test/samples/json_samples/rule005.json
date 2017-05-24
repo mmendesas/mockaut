@@ -1,0 +1,55 @@
+{
+    "name": "regra 005 - B",
+    "description": "simple rule with POST method",
+    "isDefault": false,
+    "match_info": {
+        "method": "POST",
+        "project_name": "ProjectB",
+        "path": "/mteste/post",
+        "sequence": 1
+    },
+    "expected": [
+        {
+            "path": "$.method",
+            "match": "equals",
+            "value": "POST"
+        },
+        {
+            "path": "$.httpVersion",
+            "match": "equals",
+            "value": "HTTP/1.1"
+        },
+        {
+            "path": "$.postData.text.username",
+            "match": "equals",
+            "value": "marciomendes"
+        }
+    ],
+    "response": {
+        "status": 201,
+        "statusText": "Atirei o pau no gato",
+        "httpVersion": "HTTP/1.1",
+        "cookies": [],
+        "headers": [
+            {
+                "value": "keep-alive",
+                "name": "Connection"
+            },
+            {
+                "value": "1953",
+                "name": "Content-Length"
+            },
+            {
+                "value": "application/xml",
+                "name": "Content-Type"
+            }
+        ],
+        "content": {
+            "text": "<note><to>Sherlock</to><from>GRU</from><heading>Não Tunza</heading><body>Ei manolo, eh um xml!</body></note>",
+            "mimeType": "application/xml",
+            "size": 17
+        },
+        "redirectURL": "",
+        "comment": "Groselhou a groselha 005 - B"
+    }
+}

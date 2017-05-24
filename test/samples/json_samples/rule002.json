@@ -1,0 +1,50 @@
+{
+    "name": "regra 002",
+    "description": "simple rule with get method",
+    "isDefault": false,
+    "match_info": {
+        "method": "GET",
+        "project_name": "ProjectA",
+        "path": "/mteste",
+        "sequence": 1
+    },
+    "expected": [
+        {
+            "path": "$.method",
+            "match": "equals",
+            "value": "GET"
+        },
+        {
+            "path": "$.httpVersion",
+            "match": "equals",
+            "value": "HTTP/1.1"
+        }
+    ],
+    "response": {
+        "status": 200,
+        "statusText": "OK",
+        "httpVersion": "HTTP/1.1",
+        "cookies": [],
+        "headers": [
+            {
+                "value": "keep-alive",
+                "name": "Connection"
+            },
+            {
+                "value": "1953",
+                "name": "Content-Length"
+            },
+            {
+                "value": "application/json",
+                "name": "Content-Type"
+            }
+        ],
+        "content": {
+            "text": "{'mteste': 'response from rule 002'}",
+            "mimeType": "application/json",
+            "size": 17
+        },
+        "redirectURL": "",
+        "comment": "Groselhou a groselha 002"
+    }
+}

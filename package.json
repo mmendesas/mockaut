@@ -12,22 +12,22 @@
   "dependencies": {
     "async": "^2.2.0",
     "body-parser": "^1.17.1",
+    "body-parser-xml": "^1.1.0",
     "consign": "^0.1.2",
-    "express": "^4.15.2",
+    "express": "^4.15.3",
     "formidable": "^1.1.1",
     "har": "^1.0.0",
     "http-proxy": "^1.16.2",
     "jsoneditor": "^5.5.11",
+    "jsonpath": "^0.2.11",
     "lodash": "^4.17.4",
     "mongoose": "^4.9.2",
     "nedb": "^1.8.0",
     "ng-jsoneditor": "^1.0.0",
-    "redis": "^2.7.1",
-    "swagger-client": "^2.1.32",
     "swagger-parser": "^3.4.1",
-    "swagger-tools": "^0.10.1",
     "unirest": "^0.5.1",
-    "wait.for": "^0.6.6"
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.24"
   },
   "devDependencies": {
     "mocha": "^3.3.0",

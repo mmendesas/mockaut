@@ -1,0 +1,55 @@
+{
+    "name": "regra006-SOAP",
+    "description": "soap rule with POST method",
+    "isDefault": false,
+    "match_info": {
+        "method": "POST",
+        "project_name": "ProjectB",
+        "path": "/soap/post",
+        "sequence": 1
+    },
+    "expected": [
+        {
+            "path": "$.method",
+            "match": "equals",
+            "value": "POST"
+        },
+        {
+            "path": "$.httpVersion",
+            "match": "equals",
+            "value": "HTTP/1.1"
+        },
+        {
+            "path": "$.postData.text..CalcPrazo..nCdServico[0]",
+            "match": "equals",
+            "value": "04014"
+        }
+    ],
+    "response": {
+        "status": 201,
+        "statusText": "Estava a velha no seu lugar",
+        "httpVersion": "HTTP/1.1",
+        "cookies": [],
+        "headers": [
+            {
+                "value": "keep-alive",
+                "name": "Connection"
+            },
+            {
+                "value": "1953",
+                "name": "Content-Length"
+            },
+            {
+                "value": "application/xml",
+                "name": "Content-Type"
+            }
+        ],
+        "content": {
+            "text": "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><CalcPrazoResponse xmlns=\"http://tempuri.org/\"><CalcPrazoResult><Servicos><cServico><Codigo>4014</Codigo><PrazoEntrega>2</PrazoEntrega><EntregaDomiciliar>S</EntregaDomiciliar><EntregaSabado>S</EntregaSabado><Erro /><MsgErro /><obsFim /></cServico></Servicos></CalcPrazoResult></CalcPrazoResponse></soap:Body></soap:Envelope>",
+            "mimeType": "application/xml",
+            "size": 554
+        },
+        "redirectURL": "",
+        "comment": "Groselhou a groselha 006 - SOAP"
+    }
+}

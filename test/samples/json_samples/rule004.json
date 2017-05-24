@@ -1,0 +1,55 @@
+{
+    "name": "regra 004",
+    "description": "simple rule with POST method",
+    "isDefault": false,
+    "match_info": {
+        "method": "POST",
+        "project_name": "ProjectB",
+        "path": "/mteste/post",
+        "sequence": 1
+    },
+    "expected": [
+        {
+            "path": "$.method",
+            "match": "equals",
+            "value": "POST"
+        },
+        {
+            "path": "$.httpVersion",
+            "match": "equals",
+            "value": "HTTP/1.1"
+        },
+        {
+            "path": "$.postData.text.username",
+            "match": "equals",
+            "value": "marcio"
+        }
+    ],
+    "response": {
+        "status": 201,
+        "statusText": "Criei a bagaça",
+        "httpVersion": "HTTP/1.1",
+        "cookies": [],
+        "headers": [
+            {
+                "value": "keep-alive",
+                "name": "Connection"
+            },
+            {
+                "value": "1953",
+                "name": "Content-Length"
+            },
+            {
+                "value": "application/json",
+                "name": "Content-Type"
+            }
+        ],
+        "content": {
+            "text": "{'mteste': 'response from rule 003'}",
+            "mimeType": "application/json",
+            "size": 17
+        },
+        "redirectURL": "",
+        "comment": "Groselhou a groselha 003"
+    }
+}

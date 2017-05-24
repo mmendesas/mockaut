@@ -1,6 +1,9 @@
 var cachedItems = {
+
     currentRules: [],
+
     projectList: [],
+
     makeReload: true
 }
 

@@ -1,6 +1,5 @@
 var unirest      = require('unirest');
 var helperString = require('./string');
-var async        = require('async');
 
 var request = {
 

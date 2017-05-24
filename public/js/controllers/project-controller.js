@@ -9,7 +9,7 @@ angular.module('mockaut').controller('ProjectController', function ($scope, $htt
     if ($routeParams.projectID) {
         resourceProject.get({ projectID: $routeParams.projectID }, function (project) {
             $scope.project = project;
-            populateDefaultRules(project._id);
+            populateDefaultRules(project.name);
         }, function (err) {
             console.log(err);
             $scope.customMessage = 'Unable to get the Project';
@@ -43,7 +43,7 @@ angular.module('mockaut').controller('ProjectController', function ($scope, $htt
         }
     };
 
-    $scope.uploadFile = function (mFiles) {        
+    $scope.uploadFile = function (mFiles) {
 
         cleanMessages();
 
@@ -129,7 +129,7 @@ angular.module('mockaut').controller('ProjectController', function ($scope, $htt
         resourceRule.query(function (rules) {
             var newRules = [];
             for (var i = 0; i < rules.length; i++) {
-                if (rules[i].project_id === projectID) {
+                if (rules[i].match_info.project_name === projectID) {
                     newRules.push(rules[i]);
                 }
             }

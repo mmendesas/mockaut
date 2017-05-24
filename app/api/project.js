@@ -3,6 +3,8 @@ var helperUpload = require('../helper/upload');
 var mongoose = require('mongoose');
 var mockaut = require('../middleware/mockaut');
 var cached = require('../middleware/cached-items');
+var unirest = require('unirest');
+var config = require('../../config/config');
 
 //get the project model
 var model = mongoose.model('Project');
@@ -37,6 +39,11 @@ api.removeById = function (req, res) {
     model
         .findByIdAndRemove(req.params.id)
         .then(function (project) {
+            unirest
+                .delete(config.getServer() + '/v1/rules/byProject/' + project.name)
+                .end(function (response) {
+                    //console.log(response.body);
+                });
             res.sendStatus(204);
         }, function (err) {
             console.log(err);
@@ -65,7 +72,7 @@ api.add = function (req, res) {
             var msg = "Project [" + projectToSave.name + "] already exists";
             console.log(msg);
             res.status(422).send({ "messsage": msg });
-        }        
+        }
     });
 };
 

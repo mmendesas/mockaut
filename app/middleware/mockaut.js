@@ -1,8 +1,8 @@
-var http = require('http');
 var unirest = require("unirest");
 var cached = require('./cached-items');
 var helperString = require('../helper/string');
 var helperHAR = require('../helper/har');
+var jsonparser = require('../parser/jsonparser');
 var _ = require('lodash');
 
 var mockautMiddleware = {
@@ -10,68 +10,101 @@ var mockautMiddleware = {
     run: function (app) {
         return function (req, res, next) {
 
-            var pathname = req._parsedUrl.pathname;
-            var projectName = pathname.match(/(\/\w+)/)[1];
-            var path = pathname.replace(projectName, '');
-            projectName = projectName.match(/(\w+)/)[1];
+            var callNext = true;
 
-            // console.log(helperString.formatString("URL:{0} --|-- Project:{1} | Path:{2} | Cached:{3}", [req.url, projectName, path, cached.currentRules.length]));
+            // create received match_info
+            var req_match_info = mountMatchInfo(req);
 
+            // console.log(helperString.formatString("URL:{0} --|-- Project:{1} | Path:{2} | Cached:{3}", [req.url, match_info.project_name, match_info.path, cached.currentRules.length]));
+
+            // load simple cache
             if (cached.makeReload) {
                 reloadCache();
             }
 
             if (cached.projectList.length > 0) {
-                var _project = cached.projectList.find(x => x.name.toUpperCase() === projectName.toUpperCase());
-            }
 
-            var rule;
-            if (_project) {
-                rule = cached.currentRules.find(
-                    x =>
-                        x.match_info.path === path &&
-                        x.match_info.method.toUpperCase() === req.method.toUpperCase() &&
-                        x.match_info.project_name === _project.name
-                );
-            }
+                // search for project
+                var _project =
+                    cached
+                        .projectList
+                        .find(x => x.name.toUpperCase() === req_match_info.project_name.toUpperCase());
 
-            if (rule) {
+                // search for rule            
+                if (_project) {
 
-                var reqReceived = helperHAR.createRequestFromExpressReq(req);
+                    // filter for rules that match
+                    var rules = cached.currentRules.filter(
+                        x =>
+                            x.match_info.path === req_match_info.path &&
+                            x.match_info.method.toUpperCase() === req.method.toUpperCase() &&
+                            x.match_info.project_name.toUpperCase() === _project.name.toUpperCase()
+                    );
 
-                //validate request
-                if (validate(rule.expected, reqReceived)) {
-                    //console.log('%s %s', req.method, req.url);
+                    // sort items by sequence
+                    rules.sort(function (a, b) {
+                        return a.match_info.sequence - b.match_info.sequence;
+                    });
 
-                    //make response based on HAR file
-                    //var resHAR = rule.response;
-                    makeResponse(rule.response, res);
-                } else {
-                    next();
+                    if (rules.length > 0) {
+
+                        for (var i = 0; i < rules.length; i++) {
+
+                            // create a requestHar for validation
+                            var rule = rules[i];
+                            var reqReceived = helperHAR.createRequestFromExpressReq(req);
+
+                            if (req.headers['mockautdebug'] == 'harRequest') {
+                                console.log('HAR Request:\n', helperHAR.requestToString(reqReceived));
+                            }
+
+                            //validate all field in request
+                            if (allFieldsMatch(rule.expected, reqReceived)) {
+                                //make response based on HAR file
+                                makeResponse(rule.response, res);
+                                callNext = false;
+                                break; //send only first matched
+                            }
+                        }
+                    }
                 }
-            } else {
-                next();
             }
+
+            if (callNext) next();
         }
     }
 }
 
-function validate(jsonExpected, request) {
+function mountMatchInfo(req) {
 
-    _.forEach(jsonExpected, function (itemToValidade) {
+    var pathname = req._parsedUrl.pathname;
+    var projectName = pathname.match(/(\/\w+)/)[1];
+    var path = pathname.replace(projectName, '');
+    projectName = projectName.match(/(\w+)/)[1];
 
-        if(itemToValidade.match){      
-            //helperString.compare(itemToValidade.method, )      
-        }
-    })
+    var match_info = {};
+    match_info.path = path == '' ? '/' : path;
+    match_info.project_name = projectName;
 
-    
-    console.log(request);
-
-    return false;
+    return match_info;
 }
 
+function allFieldsMatch(jsonExpected, request) {
 
+    var result = true;
+    jsonparser.init(request);
+
+    _.forEach(jsonExpected, function (expItem) {
+        if (expItem.match !== 'none') {
+            var reqValue = jsonparser.getValue(expItem.path)[0];
+            var comparisson = helperString.compare(expItem.value, expItem.match, reqValue);
+
+            if (comparisson.result !== true) result = false;
+        }
+    });
+
+    return result;
+}
 
 function reloadCache() {
     unirest

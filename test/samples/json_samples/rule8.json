@@ -1,7 +1,7 @@
 {
     "name": "regra 001",
     "description": "simple rule with get method",
-    "isDefault": false,    
+    "isDefault": false,
     "match_info": {
         "method": "GET",
         "project_name": "ProjectA",
@@ -9,6 +9,24 @@
         "sequence": 1
     },
     "expected": [
+        {
+            "path": "$.method",
+            "match": "equals",
+            "value": "GET"
+        },
+        {
+            "path": "$.url",
+            "match": "none",
+            "value": "http://localhost:3300/path/?param=value"
+        },
+        {
+            "path": "$.httpVersion",
+            "match": "none",
+            "value": "HTTP/1.1"
+        }
+    ],
+
+    "oldExpected": [
         {
             "method": "GET",
             "match": "equals"

@@ -10,11 +10,11 @@ var unirest = require('unirest');
 api.processFile = function (req, res) {
 
     var filename = req.params.filename;
-    var projectID = req.body._id;
+    var project_name = req.body.name;
     var filepath = path.resolve(__dirname, '../../uploads/' + filename);
 
     console.log('filename', filename);
-    console.log('projectID', projectID);
+    console.log('projectID', project_name);
 
     helperSwgFile
         .processFile(filepath)
@@ -24,14 +24,15 @@ api.processFile = function (req, res) {
 
                 // create a rule based on endpoint 
                 var myRule = {
-                    project_id: projectID,
                     name: 'Default Rule ' + index,
                     description: myEndpoint.description,
-                    sequence: index,
                     isDefault: true,
-                    path: myEndpoint.path,
-                    method: myEndpoint.method,
-                    mockID: 0,
+                    match_info: {
+                        method: myEndpoint.method,
+                        project_name: project_name,
+                        path: myEndpoint.path,
+                        sequence: index,
+                    },                                    
                     expected: {},
                     response: myEndpoint.responseHAR
                 }

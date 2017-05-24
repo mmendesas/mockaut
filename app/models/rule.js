@@ -1,5 +1,11 @@
 var mongoose = require('mongoose');
 
+var match_item = new mongoose.Schema({
+    path: { type: String },
+    match: { type: String },
+    value: { type: String }
+});
+
 //configura o schema para a Regra
 var ruleShema = mongoose.Schema(
     {
@@ -12,9 +18,11 @@ var ruleShema = mongoose.Schema(
             path: { type: String, required: true },
             sequence: { type: Number },
         },
-        expected: { type: Object },
+        expected: {},//[match_item],
         response: { type: Object }
     }
 );
+
+
 
 mongoose.model('Rule', ruleShema);

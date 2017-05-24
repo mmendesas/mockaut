@@ -17,28 +17,32 @@ var string = {
         var comparisson = { result: null, msg: null };
         type = type.trim().toLowerCase().replace(/\s/gi, '');
 
-        current = current.toString();
-        received = received.toString();
+        //current = current.toString();
+        //received = received.toString();
 
         switch (type) {
+            case 'contains':
             case 'whichcontains':
                 comparisson.result = current.includes(received);
-                comparisson.msg = helperString.formatString('Current value [{0}] not contains [{1}]', [current, received]);
+                comparisson.msg = this.formatString('Current value [{0}] not contains [{1}]', [current, received]);
                 break;
 
+            case 'notcontains':
             case 'whichnotcontains':
                 comparisson.result = !current.includes(received);
-                comparisson.msg = helperString.formatString('Current value [{0}] contains [{1}]', [current, received]);
+                comparisson.msg = this.formatString('Current value [{0}] contains [{1}]', [current, received]);
                 break;
 
+            case 'equals':
             case 'equalsto':
                 comparisson.result = current === received;
-                comparisson.msg = helperString.formatString('Current value [{0}] not equals to [{1}]', [current, received]);
+                comparisson.msg = this.formatString('Current value [{0}] not equals to [{1}]', [current, received]);
                 break;
 
+            case 'notequals':
             case 'notequalsto':
                 comparisson.result = current !== received;
-                comparisson.msg = helperString.formatString('Current value [{0}] is equals to [{1}]', [current, received]);
+                comparisson.msg = this.formatString('Current value [{0}] is equals to [{1}]', [current, received]);
                 break;
 
             default:

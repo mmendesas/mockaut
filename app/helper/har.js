@@ -19,7 +19,7 @@ var har = {
                 new HAR.Header('Date', new Date().toUTCString()),
                 new HAR.Header('Connection', 'keep-alive'),
                 new HAR.Header('Content-Length', textSize.toString()),
-                new HAR.Header('Content-Type', this.contentType[0]),
+                new HAR.Header('Content-Type', this.contentType),
             ],
             content: new HAR.Content({
                 mimeType: this.contentType[0],
@@ -34,7 +34,7 @@ var har = {
         var request = new HAR.Request({
             method: expressReq.method,
             url: expressReq.headers['host'] + expressReq.url,
-            httpVersion: expressReq.httpVersion
+            httpVersion: 'HTTP/' + expressReq.httpVersion
         })
 
         // mount headers        
@@ -48,9 +48,26 @@ var har = {
         //mount queryString
         request.addQuery(expressReq.query);
 
-        //console.log(request);
+        request.postData = new HAR.PostData({
+            mimeType: expressReq.headers['content-type'],
+            text: expressReq.body
+        });
 
         return request;
+    },
+
+    requestToString: function (req) {
+        var myResult = {
+            method: req.method,
+            url: req.url,
+            httpVersion: req.httpVersion,
+            cookies: req.cookies,
+            headers: req.headers,
+            queryString: req.queryString,
+            postData: req.postData,
+            comment: req.comment
+        }
+        return JSON.stringify(myResult, null, 2);
     }
 };
 
