@@ -17,7 +17,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Project</label>
-                            <select name="project" class="form-control" required ng-controller="ProjectsController" ng-model="rule.project_id" ng-options="project._id as project.name for project in projects">
+                            <select name="project" class="form-control" required ng-controller="ProjectsController" ng-model="rule.match_info.project_name" ng-options="project.name for project in projects">
                                 <option value="">Select the project</option>
                             </select>
                             <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.project.$error.required">
@@ -53,7 +53,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Method</label>
-                            <select name="method" class="form-control" required ng-controller="ProjectsController" ng-model="rule.method">
+                            <select name="method" class="form-control" required ng-controller="ProjectsController" ng-model="rule.match_info.method">
                         <option value="">Select the method</option>
                         <option value="post">POST</option>
                         <option value="get">GET</option>
@@ -69,7 +69,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <label>Path</label>
-                            <input ng-model="rule.path" name="path" class="form-control" required>
+                            <input ng-model="rule.match_info.path" name="path" class="form-control" required>
                             <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.path.$error.required">
                         Path is required
                     </span>

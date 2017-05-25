@@ -8,17 +8,24 @@ require('body-parser-xml')(bodyParser);
 var mmw = require('../app/middleware/mockaut');
 var merr = require('../app/middleware/error-handler');
 
+// load resources
 app.use(express.static('./public'));
 app.use(express.static(path.join(__dirname, 'node_modules')));
+
+// set bodyParser (json, xml)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.xml());
-app.use(mmw.run(app));
-//app.use(merr.logErrors);
-//app.use(merr.clientErrorHandler);
-//app.use(merr.errorHandler);
 
-//load the files and put app into them
+// start mockaut middleware
+app.use(mmw.run(app));
+
+// log errors (test)
+app.use(merr.logErrors);
+app.use(merr.clientErrorHandler);
+app.use(merr.errorHandler);
+
+// load the files and put app into them
 consign({ cwd: 'app' })
     .include('models')
     .then('api')

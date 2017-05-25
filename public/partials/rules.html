@@ -28,7 +28,7 @@
         <tbody>
             <tr ng-repeat="rule in rules | filter: filtro">
                 <td>{{rule.name}}</td>
-                <td>{{rule.path}}</td>
+                <td>{{rule.match_info.path}}</td>
                 <td>{{rule.description}}</td>
                 <!--<td>{{rule.project_id}}</td>-->
                 <td>
