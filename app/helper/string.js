@@ -14,7 +14,7 @@ var string = {
 
     compare: function (current, type, received) {
 
-        var comparisson = { result: null, msg: null };
+        var comparisson = { result: false, msg: '' };
         type = type.trim().toLowerCase().replace(/\s/gi, '');
 
         //current = current.toString();
@@ -43,9 +43,6 @@ var string = {
             case 'notequalsto':
                 comparisson.result = current !== received;
                 comparisson.msg = this.formatString('Current value [{0}] is equals to [{1}]', [current, received]);
-                break;
-
-            default:
                 break;
         }
 

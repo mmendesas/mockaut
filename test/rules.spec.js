@@ -3,6 +3,7 @@ var http = require('http');
 var unirest = require('unirest');
 var path = require('path')
 var helperFile = require('../app/helper/file');
+var config = require('../config//config');
 
 
 // describe('RulesController-Supertest', function () {
@@ -21,10 +22,9 @@ var helperFile = require('../app/helper/file');
 // });
 
 
-describe('RulesController', function () {
+describe('Rules Controller', function () {
 
-    var server = 'http://localhost:3300/v1';
-
+    config.port = 3300;
     // it('#Valida content type json', function (done) {
     //     unirest
     //         .get(server + '/v2/rules')
@@ -36,13 +36,13 @@ describe('RulesController', function () {
     //         });
     // });
 
-    it("should be block more tahn one item with the same name", function (done) {
+    it("should be block more than one item with the same name", function (done) {
 
         var project = { "name": "ProjectX", "description": "project sample" };
         var _project;
 
         unirest
-            .post(server + '/projects')
+            .post(config.getServer() + '/v1/projects')
             .header('Content-type', 'application/json')
             .send(project)
             .end(function (res) {
@@ -52,7 +52,7 @@ describe('RulesController', function () {
 
                 //check duplicates
                 unirest
-                    .post(server + '/projects')
+                    .post(config.getServer() + '/v1/projects')
                     .send(project)
                     .end(function (res) {
                         expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
@@ -60,7 +60,7 @@ describe('RulesController', function () {
 
                         //remove from DB
                         unirest
-                            .delete(server + '/projects/' + _project._id)
+                            .delete(config.getServer() + '/v1/projects/' + _project._id)
                             .end(function (res) {
                                 expect(res.statusCode).to.equal(204);
                                 done();
@@ -70,21 +70,21 @@ describe('RulesController', function () {
 
     });
 
-    it('#Cadastra item no db', function (done) {
+    // it('#Cadastra item no db', function (done) {
 
-        var ruleContent = helperFile.readContentFromFile(path.resolve('./test/samples/models/rule.json'));
-        var rule = JSON.parse(ruleContent);
+    //     var ruleContent = helperFile.readContentFromFile(path.resolve('./test/samples/json_samples/rule.json'));
+    //     var rule = JSON.parse(ruleContent);
 
-        unirest
-            .post(server + '/rules')
-            .header('Accept', 'application/json')
-            .header('Content-Type', 'application/json')
-            .send(rule)
-            .end(function (res) {
-                expect(res.statusCode).to.equal(201);
-                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                done();
-            });
-    });
+    //     unirest
+    //         .post(config.getServer() + '/v1/rules')
+    //         .header('Accept', 'application/json')
+    //         .header('Content-Type', 'application/json')
+    //         .send(rule)
+    //         .end(function (res) {
+    //             expect(res.statusCode).to.equal(201);
+    //             expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
+    //             done();
+    //         });
+    // });
 
 });
